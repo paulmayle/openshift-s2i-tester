@@ -1,0 +1,10 @@
+.classpath
+.project
+.settings/
+target/
+logs/
+test-output/
+*.iml
+.idea
+sp-metadata.xml
+*.txt

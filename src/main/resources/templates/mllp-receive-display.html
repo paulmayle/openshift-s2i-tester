@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/automation.css}" type="text/css"/>
+    <meta charset="UTF-8">
+    <title>mllp receiver </title>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        let listenPort = /*[[${limit}]]*/ 'listenPort';
+        /*]]>*/
+    </script>
+</head>
+<body>
+
+
+<h1> mllp receiver </h1>
+
+<h3 th:inline="text">
+    Host: [[${hostName}]]   ( [[${hostAddress}]]  )
+</h3>
+
+
+
+<input id="listenPort" name="listenPort" th:value="${listenPort}" type="text">
+<button class="startButton" id="Submit" name="startButton" onclick="buildForm(this)" type="button"> Set Listen Port</button>
+<button class="stopButton" id="stop" name="stopButton" onclick="buildFormStop(this)" type="button"> Stop Listening</button>
+<a href="home"> <img alt="home" src="/home-30.png"> </a>
+<div id="replace_div">
+
+</div>
+
+
+<!-- ----------------------- JAVASCRIPT----------------------- -->
+
+
+<!-- JQuery from Google CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script>
+
+    let timerId;
+    window.onload = startRefreshTimer;
+
+    function startRefreshTimer() {
+
+        setTimeout(function () {
+            updateMessage();
+            startRefreshTimer();
+        }, 500);
+    }
+
+
+
+    function buildForm() {
+        clearInterval(timerId);
+        let controlForm = document.createElement("FORM");
+        controlForm.setAttribute("id", "controlForm");
+        controlForm.setAttribute("method", "post");
+        controlForm.setAttribute("style", "display: none");
+        document.body.appendChild(controlForm);
+
+        // Port
+        document.getElementById("controlForm").appendChild(document.getElementById("listenPort"));
+
+        let btn = document.createElement("button");
+        btn.type = "submit";
+        btn.value = "port";
+        btn.name = "submit";
+        document.getElementById("controlForm").appendChild(btn);
+
+        btn.click();
+    }
+
+    function buildFormStop() {
+        clearInterval(timerId);
+        let controlForm = document.createElement("FORM");
+        controlForm.setAttribute("id", "controlForm");
+        controlForm.setAttribute("method", "post");
+        controlForm.setAttribute("style", "display: none");
+        document.body.appendChild(controlForm);
+
+        let btn = document.createElement("button");
+        btn.type = "submit";
+        btn.value = "stop";
+        btn.name = "submit";
+        document.getElementById("controlForm").appendChild(btn);
+        btn.click();
+    }
+
+
+    function updateMessage() {
+
+        //call function when page is loaded
+        getContent();
+
+        //set on change listener
+        $('#selection').change(getContent);
+
+        function getContent() {
+
+            //create url to request fragment
+            let url = "/lastMessage";
+
+
+            //load fragment and replace content
+            $('#replace_div').load(url);
+        }
+    }
+
+    $(document).ready(updateMessage())
+
+</script>
+
+
+</body>
+</html>
+
+

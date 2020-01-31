@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/static/css/automation.css}" type="text/css"/>
+</head>
+<body>
+
+
+<!-- Insert received message content into the web page-->
+<div th:fragment="lastMessage">
+
+    <table id="message" style="display: block">
+        <tr>
+            <td class="heading" th:text="${portMessage}"></td>
+        </tr>
+
+        <tr th:each="segment : ${message}">
+            <td class="message-body" th:text="${segment }"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+<!-- Insert send content into the web page-->
+
+<div th:fragment="sendUpdate" th:text="${sendMessage}">
+
+    <img src="/connected.png" alt="Connected" >
+
+</div>
+
+
+<!-- Insert send content into the web page-->
+
+<div th:fragment="connectState">
+
+    <p class="connect">
+    <img src="connected.png" alt="Connected" > &nbsp; &nbsp;
+     Connected </p>
+
+</div>
+
+
+<div th:fragment="disConnectState">
+
+    <p class="connect">
+    <img src="disconnected.jpg" alt="Disconnected" > &nbsp; &nbsp;
+     Disconnected </p>
+
+</div>
+
+
+
+
+</body>
+</html>
+
+

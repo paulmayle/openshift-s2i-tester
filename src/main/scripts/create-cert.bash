@@ -1,0 +1,1 @@
+keytool -genkey -keystore keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias mllp-selfsigned -dname "cn=Unknown, ou=Unknown, o=Unknown, c=Unknown" -storepass password -keypass password

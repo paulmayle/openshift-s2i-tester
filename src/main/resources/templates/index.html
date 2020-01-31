@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/automation.css}" type="text/css"/>
+    <meta charset="UTF-8">
+    <title>HL7 Message Tester</title>
+</head>
+<body>
+
+<h1>HL7 Message tester </h1>
+
+<h3 th:inline="text">
+    Host: [[${hostName}]]   ( [[${hostAddress}]]  )
+</h3>
+
+
+<table>
+    <tr>
+        <td>
+            <button class="startButton" id="listen"  onclick="listen(this)" type="button">Listen</button>
+        </td>
+
+        <td>
+            <button class="startButton" id="send"  onclick="send(this)" type="button">Send</button>
+        </td>
+
+    </tr>
+
+</table>
+
+
+<!-- ----------------------- JAVASCRIPT----------------------- -->
+
+
+
+<script>
+
+    function listen() {
+
+        let controlForm = document.createElement("FORM");
+        controlForm.setAttribute("id", "controlForm");
+        controlForm.setAttribute("method", "get");
+        controlForm.setAttribute("action", "/listen");
+        controlForm.setAttribute("style", "display: none");
+        document.body.appendChild(controlForm);
+
+        let btn = document.createElement("button");
+        btn.type = "submit";
+        btn.value = "init";
+        btn.name = "submit";
+        document.getElementById("controlForm").appendChild(btn);
+
+        btn.click();
+    }
+
+    function send() {
+
+        let controlForm = document.createElement("FORM");
+        controlForm.setAttribute("id", "controlForm");
+        controlForm.setAttribute("method", "get");
+        controlForm.setAttribute("action", "/send");
+        controlForm.setAttribute("style", "display: none");
+        document.body.appendChild(controlForm);
+
+        let btn = document.createElement("button");
+        btn.type = "submit";
+        btn.value = "init";
+        btn.name = "submit";
+        document.getElementById("controlForm").appendChild(btn);
+
+        btn.click();
+    }
+
+
+
+</script>
+
+
+</body>
+</html>

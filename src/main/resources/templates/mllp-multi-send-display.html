@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/automation.css}" type="text/css"/>
+    <meta charset="UTF-8">
+    <title>mllp sender </title>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        let status = /*[[${status}]]*/ 'status';
+        /*]]>*/
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/mllpsend.js"></script>
+</head>
+<body>
+
+
+<h1> mllp sender - multiple message from file</h1>
+
+<h3 th:inline="text">
+    Host: [[${hostName}]]   ( [[${hostAddress}]]  )
+</h3>
+
+
+
+<table>
+    <tr>
+        <td>
+            Host
+        </td>
+        <td><input size="60" id="sendHost" name="sendHost" th:value="${sendHost}" type="text" onchange="connect()"></td>
+    </tr>
+    <tr>
+        <td>
+            Port
+        </td>
+        <td>
+            <input size="10" id="sendPort" name="sendPort" th:value="${sendPort}" type="text" onchange="connect()">
+        </td>
+    </tr>
+</table>
+
+
+<table>
+    <tr>
+        <td>
+            <button class="startButton" id="Submit" name="startButton" onclick="connect(this)" type="button">Connect</button>
+        </td>
+        <td>
+            <button class="stopButton" id="Stop" name="stopButton" onclick="disconnect(this)" type="button">Disconnect</button>
+        </td>
+        <td>
+            <div id="test_result">
+                <p class="connect">
+                    <img src="disconnected.jpg" alt="Disconnected" > &nbsp; &nbsp;
+                    waiting for status ............................................ </p>
+            </div>
+        </td>
+        <td>
+            <a href="home"> <img alt="home" src="/home-30.png"> </a>
+        </td>
+    </tr>
+</table>
+
+
+<table>
+
+    <tbody>
+    <tr th:each="message : ${hl7Messages}">
+        <td th:text="${message[0]}">
+        </td>
+        <td>
+            <textarea class="message" id="hl7Message" name="hl7Message" rows="5" cols="100" th:text="${message[1]}" readonly >  </textarea>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<table>
+    <tr>
+        <td>
+            <input class="inputfile" type="file" id="file" name="file" onchange="uploadFile(this)"/> <label for="file">Load from file</label>
+        </td>
+        <td>
+            <button class="startButton" id="Send" name="sendButton" onclick="multiSend(this)" type="button">Send All</button>
+        </td>
+    </tr>
+    <tr>
+        <td th:text="'Display 10 records (1 to ' +  ${multiMessageSize} + ')'">
+        </td>
+        <td>
+            <input id="startAt" name="startAt" size="10" th:value="${startAt}" type="text" onchange="updateStartAt()">
+
+            <button class="startButton" id="updateDisplay" name="updateDisplay" onclick="updateStartAt(this)" type="button">Update Display</button>
+        </td>
+
+    </tr>
+
+
+
+    <tr>
+        <td>
+            Response
+        </td>
+
+        <td>
+            <textarea class="response" id="hl7Response" name="hl7Response" rows="3" cols="100" th:text="${hl7Response}" readonly> > </textarea>
+        </td>
+
+    </tr>
+
+    
+</table>
+
+
+<div hidden id="loader">
+    <img alt="loading" src="/ajax-loader.gif">
+</div>
+
+
+</body>
+</html>
+
+
